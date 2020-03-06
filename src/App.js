@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Form from "./components/Form";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+  const [formState, setFormState] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  })
+  const onChangeHandler = (e) => {
+    e.preventDefault();
+    setFormState({
+      ...formState,
+      [e.target.name]: e.target.value
+    });
+  }
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    console.log(formState);
+  }
+  
+    return (
+      <div className='App'>
+          <Form
+            onChangeHandler={onChangeHandler}
+            onSubmitHandler={onSubmitHandler}
+          />
+          <p>Your From Data</p>
+          <p>First Name: {formState.firstName}</p>
+          <p>Last Name: {formState.lastName}</p>
+          <p>Email: {formState.email}</p>
+          <p>Password: {formState.password}</p>
+          <p>Confirm Password: {formState.confirmPassword}</p>
+      </div>
+    );
+  
 }
 
 export default App;
